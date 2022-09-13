@@ -9,6 +9,15 @@
 
 출력
 각 테스트 케이스에 대해서, 입력으로 주어진 문장의 단어를 모두 뒤집어 출력한다.
+
+예제 입력 1
+2
+I am happy today
+We want to win the first prize
+
+예제 출력 1
+I ma yppah yadot
+eW tnaw ot niw eht tsrif ezirp
 """
 
 import sys

@@ -15,9 +15,40 @@ top: 스택의 가장 위에 있는 정수를 출력한다. 만약 스택에 들
 
 출력
 출력해야하는 명령이 주어질 때마다, 한 줄에 하나씩 출력한다.
+
+예제 입력 1
+14
+push 1
+push 2
+top
+size
+empty
+pop
+pop
+pop
+size
+empty
+pop
+push 3
+empty
+top
+
+예제 출력 1
+2
+2
+0
+2
+1
+-1
+0
+1
+-1
+0
+3
 """
 
 import sys
+
 n = int(sys.stdin.readline())
 
 stack = []
@@ -43,16 +74,3 @@ for _ in range(n):
             print(-1)
         else:
             print(stack[-1])
-
-
-
-
-
-
-
-
-
-
-
-
-
