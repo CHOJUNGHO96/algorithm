@@ -19,7 +19,5 @@ for _ in range(num):
     words = sys.stdin.readline().rstrip().split()
 
     for word in words:
-        print(word[::-1], end=' ')
+        print(word[::-1], end=" ")
     print()
-
-
