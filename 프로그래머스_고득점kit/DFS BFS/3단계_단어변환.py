@@ -1,8 +1,8 @@
-def solution(시작단어, 타겟단어, 단어들):
+def solution1(시작단어, 타겟단어, 단어들):
     """
     주의
     1. 한 번에 한 개의 알파벳만 바꿀 수 있습니다.
-    2. words에 있는 단어로만 변환할 수 있습니다.
+    2. 단어들에 있는 단어로만 변환할 수 있습니다.
     """
     from collections import deque
 
@@ -78,15 +78,57 @@ def solution(시작단어, 타겟단어, 단어들):
     return 0
 
 
+from collections import deque
+
+
+def 단어체크(단어1, 단어2):
+    # 두 단어 사이에 한 글자만 다른지 확인
+    틀린횟수 = 0
+    for c1, c2 in zip(단어1, 단어2):
+        if c1 != c2:
+            틀린횟수 += 1
+        if 틀린횟수 > 1:
+            return False
+    return 틀린횟수 == 1
+
+
+def solution(시작단어, 타겟단어, 단어들):
+    """
+    bfs 풀이
+    """
+
+    # 타겟단어가 단어들에 포함없으면 리턴
+    if 타겟단어 not in 단어들:
+        return 0
+
+    방문체크 = set()
+
+    # 큐에 조사할 단어와 변환 횟수를 같이 기록해둔다
+    큐 = deque([(시작단어, 0)])  # (현재 단어, 변환 횟수)
+
+    while 큐:
+        큐단어, 변환횟수 = 큐.popleft()
+        if 큐단어 == 타겟단어:
+            return 변환횟수
+
+        for 단어 in 단어들:
+            if 단어 not in 방문체크 and 단어체크(큐단어, 단어):
+                방문체크.add(단어)
+                큐.append((단어, 변환횟수 + 1))
+
+    return 0
+
+
+print(solution("hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"]))  # 4
 print(solution("hit", "cog", ["hot", "dot", "dot", "dog", "lot", "log", "cog"]))  # 4
 print(solution("hit", "cog", ["hot", "dot", "dog", "lot", "log"]))  # 0
-print(solution("hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"]))  # 4
+print(solution("hit", "cog", ["hot", "dot", "dog", "lot", "log", "fog", "cog"]))  # 4
 print(solution("hit", "cog", ["hot", "dot", "dog", "lot", "log"]))  # 0
 print(solution("hit", "hot", ["hot", "dot", "dog", "lot", "log"]))  # 1
-# print(solution("1234567000", "1234567899", ["1234567800", "1234567890", "1234567899"]))  # 3
-# print(solution("hit", "cog", ["cog", "log", "lot", "dog", "hot"]))  # 4
-# print(solution("hit", "bak", ["hot", "dot", "dog", "lot", "log", "bak"]))  # 0
-# print(solution("hit", "hhh", ["hhh", "hht"]))  # 2
-# print(solution("hit", "bak", ["hot", "dot", "dog", "lot", "log", "bak"]))  # 0
-# print(solution("hit", "hhh", ["hhh", "hht"]))  # 2
-# print(solution("hit", "gga", ["hot", "dot", "dog", "lot", "log", "cog", "gga"]))  # 0
+print(solution("1234567000", "1234567899", ["1234567800", "1234567890", "1234567899"]))  # 3
+print(solution("hit", "cog", ["cog", "log", "lot", "dog", "hot"]))  # 4
+print(solution("hit", "bak", ["hot", "dot", "dog", "lot", "log", "bak"]))  # 0
+print(solution("hit", "hhh", ["hhh", "hht"]))  # 2
+print(solution("hit", "bak", ["hot", "dot", "dog", "lot", "log", "bak"]))  # 0
+print(solution("hit", "hhh", ["hhh", "hht"]))  # 2
+print(solution("hit", "gga", ["hot", "dot", "dog", "lot", "log", "cog", "gga"]))  # 0
