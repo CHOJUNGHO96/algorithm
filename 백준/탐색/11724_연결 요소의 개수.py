@@ -62,3 +62,39 @@ for i in range(1, n + 1):
         result += 1
 
 print(result)
+
+
+# bfs풀이법
+from collections import deque
+
+# 인접행렬 풀이방식
+input = sys.stdin.readline
+n, m = map(int, input().split())
+
+graph = [[] for _ in range(n + 1)]
+for i in range(m):
+    a, b = map(int, input().split())
+    graph[a].append(b)
+    graph[b].append(a)
+
+visited = [False] * (n + 1)
+
+
+def bfs(v):
+    que = deque([])
+    que.append(v)
+    visited[v] = True
+    while que:
+        tmp = que.popleft()
+        for i in graph[tmp]:
+            if not visited[i]:
+                visited[i] = True
+                que.append(i)
+
+
+result = 0
+for i in range(1, n + 1):
+    if not visited[i]:
+        bfs(i)
+        result += 1
+print(result)
