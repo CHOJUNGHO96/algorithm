@@ -40,7 +40,7 @@ while True:
                 dfs(i, j)
                 result += 1
 
-print(result)
+    print(result)
 
 
 # bfs 풀이법
