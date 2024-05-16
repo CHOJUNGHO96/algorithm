@@ -45,7 +45,8 @@ N, M = map(int, input().split())
 graph = []
 for i in range(N):
     graph.append(list(map(int, input().split())))
-# 위,아래,오른,왼,대각위오른,대각왼오른,대각아래오른,대각아래왼
+
+# 8방향 좌표설정
 dy = [-1, +1, 0, 0, -1, -1, +1, +1]
 dx = [0, 0, +1, -1, +1, -1, +1, -1]
 res = 0
@@ -60,15 +61,6 @@ def bfs(y, x):
     while q:
         _y, _x = q.popleft()
 
-        # 상어를발견한 좌표면 종료
-        if graph[_y][_x] == 1:
-            return visited[_y][_x][1]
-
-        # 플래그가 활성화되면 상어 발견한 좌표가 나올때까지 continue
-        # 이유는 상어를발견했다면 bfs원리상 먼저 발견한곳이 최단거리로 발견한것이기때문이다
-        if flag:
-            continue
-
         for i in range(8):
             ty = dy[i] + _y
             tx = dx[i] + _x
@@ -82,9 +74,9 @@ def bfs(y, x):
                 visited[ty][tx][1] = visited[_y][_x][1] + 1
                 q.append((ty, tx))
 
-                # 상어를 만났다는 플래그 활성화
+                # 상어를 만나면 리턴
                 if graph[ty][tx] == 1:
-                    flag = True
+                    return visited[ty][tx][1]
     return 0
 
 
