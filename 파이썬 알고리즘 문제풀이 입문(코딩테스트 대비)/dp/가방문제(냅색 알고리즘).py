@@ -20,6 +20,7 @@
  ▣출력예제 1
 28
 """
+# 내풀이
 N, K = map(int, input().split())
 dy = [0] * (K + 1)
 w = []
@@ -37,3 +38,17 @@ for i in range(N):
             dy[j] = dy[j - w[i]] + v[i]
 
 print(max(dy))
+
+
+# 강의풀이
+import sys
+
+sys.stdin = open("input.txt", "r")
+if __name__ == "__main__":
+    n, m = map(int, input().split())
+    dy = [0] * (m + 1)
+    for i in range(n):
+        w, v = map(int, input().split())
+        for j in range(w, m + 1):
+            dy[j] = max(dy[j], dy[j - w] + v)
+    print(dy[m])
