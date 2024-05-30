@@ -19,7 +19,7 @@
  ▣출력예제 1
 41
 """
-
+# 내풀이
 N, M = map(int, input().split())
 dp = [0] * (M + 1)
 arr = []
@@ -31,3 +31,16 @@ for i in range(N):
         dp[j] = max(dp[j - arr[i][1]] + arr[i][0], dp[j])
 
 print(max(dp))
+
+# 강의 풀이
+import sys
+
+sys.stdin = open("input.txt", "r")
+if __name__ == "__main__":
+    n, m = map(int, input().split())
+    dy = [0] * (m + 1)
+    for i in range(n):
+        ps, pt = map(int, input().split())
+        for j in range(m, pt - 1, -1):
+            dy[j] = max(dy[j], dy[j - pt] + ps)
+    print(dy[m])
