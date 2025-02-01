@@ -2,19 +2,34 @@ from typing import List
 
 
 class Solution:
-    def canJump(self, nums: List[int]) -> bool:
-        """
-        DFS 이용해서 풀어야함
-        """
-        arr = [[] for _ in range(len(nums) - 1)]  # [[3, 1], [1, 1, 4], [1], [4]]
-        for i in range(len(nums) - 1):
-            arr[i] = nums[i + 1 : nums[i] + i + 1]
+    def canJump1(self, nums):
+        n = len(nums)
 
-        def backtracking():
-            
+        def dfs(index):
+            if index >= n - 1:
+                return True
 
-        backtracking()
-        ...
+            max_jump = nums[index]
+            for step in range(1, max_jump + 1):
+                if dfs(index + step):
+                    return True
+
+            return False
+
+        return dfs(0)
+
+    def canJump(self, nums):
+        max_reach = 0
+        n = len(nums)
+
+        for i in range(n):
+            if i > max_reach:
+                return False
+            max_reach = max(max_reach, i + nums[i])
+            if max_reach >= n - 1:
+                return True
+
+        return False
 
 
 a = Solution()
